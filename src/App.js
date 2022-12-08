@@ -1,25 +1,53 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import React, { useState, useEffect } from 'react';
+
+import BarPlot from './BarChart';
+import ScatterPlot from './ScatterChart';
+import InputCard from './InputCard';
+
+import axios from 'axios';
+
+function App () {
+  // const rootElement = document.getElementById("root");
+
+  const [barData, setBarData] = useState([]);
+
+  const [scatterData, setScatterData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/scores');
+        setBarData(response.data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/cross_val_scores');
+        setScatterData(response.data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <InputCard model={"A"}/>
+      <div style={{ display: 'flex', flexDirection: 'row'}}>
+        <BarPlot data={barData}/>
+        <ScatterPlot data={scatterData}/>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
