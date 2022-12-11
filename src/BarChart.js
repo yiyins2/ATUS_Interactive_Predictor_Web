@@ -11,7 +11,7 @@ export default function BarPlot(props) {
             isAnimationActive={false} 
             width={500} height={500} 
             margin={{ left: 20, bottom: 20, top:20 , right: 5}}>
-        <Bar dataKey="score"/>
+        <Bar dataKey="score" fill="fill"/>
         <XAxis dataKey="model">
             <Label value="Models" textAnchor='middle' dy={25} style={{fontSize: fontSize}}/>
         </XAxis>
