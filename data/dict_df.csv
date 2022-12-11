@@ -1,0 +1,45 @@
+key,value
+Not specified,-1
+Metropolitan,1
+Non-metropolitan,2
+Not specified,3
+Employed,1
+Unemployed,2
+Not specified,-1
+fulltime,1
+partime,2
+Not specified,-1
+Male,1
+Female,2
+Married,1
+"Unmarried, but in relationship",2
+Single,3
+Less than 1st grade,31
+"1st, 2nd, 3rd, or 4th grade",32
+5th or 6th grade,33
+7th or 8th grade,34
+9th grade,35
+10th grade,36
+11th grade,37
+12th grade - no diploma,38
+High school graduate - diploma or equivalent (GED),39
+Some college but no degree,40
+Associate degree - occupational/vocational,41
+Associate degree - academic program,42
+"Bachelor's degree (BA, AB, BS, etc.)",43
+"Master's degree (MA, MS, MEng, MEd, MSW, etc.)",44
+"Professional school degree (MD, DDS, DVM, etc.)",45
+"Doctoral degree (PhD, EdD, etc.)",46
+White only,1
+Black only,2
+"American Indian, Alaskan Native only",3
+Asian only,4
+Hawaiian/Pacific Islander only,5
+White-Black,6
+White-American Indian,7
+White-Asian,8
+White-Hawaiian,9
+Black-American Indian,10
+Black-Asian,11
+Black-Hawaiian,12
+American Indian-Asian,13
