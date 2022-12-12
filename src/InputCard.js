@@ -11,42 +11,65 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import Switch from '@mui/material/Switch';
 
 import axios from 'axios';
-import { margin } from '@mui/system';
 
 
 export default function InputCard(props) {
 
     const [age, setAge] = React.useState(10); 
+    const [ageSwitch, setAgeSwitch] = React.useState(true); 
 
     const handleAgeChange = event => {
         setAge(event.target.value);
     };
 
     const [gender, setGender] = React.useState('');
+    const [genderSwitch, setGenderSwitch] = React.useState(true);
 
     const handleGenderChange = event => {
         setGender(event.target.value);
     };
 
     const [race, setRace] = React.useState('');
+    const [raceSwitch, setRaceSwitch] = React.useState(true); 
 
     const handleRaceChange = event => {
         setRace(event.target.value);
     };
 
     const [income, setIncome] = React.useState('');
+    const [incomeSwitch, setIncomeSwitch] = React.useState(true); 
 
     const handleIncomeChange = event => {
         setIncome(event.target.value);
     };
 
     const handleUpdate = async event => {
+        const features = []
+        const feature_values = []
+        if (ageSwitch) {
+            features.push('age')
+            feature_values.push(age)
+        }
+        if (genderSwitch) {
+            features.push('gender')
+            feature_values.push(gender)
+        }
+        if (raceSwitch) {
+            features.push('race')
+            feature_values.push(race)
+        }
+        if (incomeSwitch) {
+            features.push('salary')
+            feature_values.push(income)
+        }
         const res = await axios.put(
             'http://127.0.0.1:5000/model_input_put', {
             'model': props.model, 
-            'input': [age, gender, race, income]
+            'features': features, 
+            'feature_values': feature_values
         })
         props.update_radar(res.data[0])
         props.update_bar(res.data[1])
@@ -56,6 +79,7 @@ export default function InputCard(props) {
 
     const marginTop = 2; 
     const marginLeft = 0; 
+    const cardWidth = 420; 
 
     return (
         <Box sx={{ width: 500, margin: 2}}>
@@ -66,7 +90,8 @@ export default function InputCard(props) {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{display: 'flex', flexDirection: 'column'}}>
-                    <Box sx={{ width: 320, marginLeft: marginLeft, display: 'flex', flexDirection: 'row'}}>
+                    <Box sx={{ width: cardWidth, marginLeft: marginLeft, display: 'flex', flexDirection: 'row'}}>
+                        <Switch checked={ageSwitch} style={{marginRight: 2}} onChange={e => {setAgeSwitch(e.target.checked); }} />
                         <Typography style={{fontSize: 17}}>Age</Typography>
                         <Slider 
                             min={10}
@@ -79,8 +104,8 @@ export default function InputCard(props) {
                         />
                     </Box>
 
-                    <Box sx={{width: 320, marginLeft: marginLeft, marginTop: marginTop}}>
-                    {/* <Typography style={{fontSize: 18}}>Race</Typography> */}
+                    <Box sx={{width: cardWidth, marginLeft: marginLeft, marginTop: marginTop, display: 'flex', flexDirection: 'row'}}>
+                        <Switch checked={genderSwitch} onChange={e => {setGenderSwitch(e.target.checked); }} />
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                             <Select
@@ -96,8 +121,8 @@ export default function InputCard(props) {
                         </FormControl>
                     </Box>
 
-                    <Box sx={{width: 320, marginLeft: marginLeft, marginTop: marginTop}}>
-                    {/* <Typography style={{fontSize: 18}}>Race</Typography> */}
+                    <Box sx={{width: cardWidth, marginLeft: marginLeft, marginTop: marginTop, display: 'flex', flexDirection: 'row'}}>
+                        <Switch checked={raceSwitch} onChange={e => {setRaceSwitch(e.target.checked); }} />
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Race</InputLabel>
                             <Select
@@ -137,7 +162,8 @@ export default function InputCard(props) {
                         </FormControl>
                     </Box>
 
-                    <Box sx={{ width: 320, marginLeft: marginLeft, display: 'flex', flexDirection: 'row', marginTop: marginTop}}>
+                    <Box sx={{ width: cardWidth, marginLeft: marginLeft, display: 'flex', flexDirection: 'row', marginTop: marginTop}}>
+                        <Switch checked={incomeSwitch} onChange={e => {setIncomeSwitch(e.target.checked); }} />
                         <Typography style={{fontSize: 17, flex: 1}}>Weekly Income</Typography>
                         <Slider 
                             min={0}
@@ -150,7 +176,7 @@ export default function InputCard(props) {
                         />
                     </Box>
 
-                    <Box sx={{width: 320, marginLeft: 2, marginTop: marginTop, marginBottom: 2}}>
+                    <Box sx={{width: cardWidth, marginLeft: 2, marginTop: marginTop, marginBottom: 2}}>
                     <Button variant="contained" onClick={handleUpdate} style={{fontSize: 17}}>
                         Update Model
                     </Button>

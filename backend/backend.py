@@ -11,7 +11,7 @@ from sklearn.model_selection import cross_val_score
 app = Flask(__name__)
 cors = CORS(app)
  
-df = pd.read_csv("ht_data.csv")
+df = pd.read_csv("data.csv")
 
 all_features = ["age", "gender", "race", "salary"]
 all_labels = ["Personal Care Activities", "Work & Work-Related Activities", "Household Activities", "Socializing, Relaxing, and Leisure", "Eating and Drinking"] 
@@ -32,7 +32,7 @@ models = [{
 
 train_X, test_X, train_y, test_y = train_test_split(df[all_features], df[all_labels], test_size=0.3, random_state=765)
 
-colors = ["#fe4a49", "#2ab74a", "#fed766"]
+colors = ["#fe4a49", "#52b000", "#03a1fc"]
 pred_len = len(all_labels)
 cv_fold = 5
 predictions = []
@@ -65,7 +65,7 @@ def train_test(model_idx):
     labels = model["labels"]
     feature_values = model["feature_values"]
     reg = Lasso(alpha=0.1)
-    reg.fit(train_X, train_y)
+    reg.fit(train_X[features], train_y)
     scores[model_idx]["score"] = reg.score(test_X[features], test_y[labels])
     cv_scores = cross_val_score(reg, train_X[features], train_y[labels], cv=5)
     for i in range(cv_fold): 
@@ -92,18 +92,18 @@ def scores_route():
 def cross_val_scores_route(): 
     return jsonify(cross_val_scores)
 
-@app.route('/model_input_put', methods=['GET', 'PUT'])
+@app.route('/model_input_put', methods=['PUT'])
 def model_input_put_route(): 
     data = json.loads(request.data)
     model_id = data["model"]
-    input = data["input"]
     if model_id == "A": 
         model_idx = 0
     elif model_id == "B": 
         model_idx = 1
     else: 
         model_idx = 2
-    models[model_idx]["feature_values"] = input
+    models[model_idx]["features"] = data["features"]
+    models[model_idx]["feature_values"] = data["feature_values"]
     train_test(model_idx)
     return jsonify([predictions, scores, cross_val_scores])
 
@@ -133,7 +133,7 @@ def reinit_route():
             "Model B": 0, 
             "Model C": 0
         })
-    return 
+    return jsonify([predictions, scores, cross_val_scores])
 
 if __name__ == "__main__":
     app.run(debug=True)

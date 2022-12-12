@@ -6,6 +6,7 @@ import BarPlot from './BarChart';
 import ScatterPlot from './ScatterChart';
 import RadarPlot from './RadarChart';
 import InputCard from './InputCard';
+import GroupBartPlot from './GroupBarChart';
 
 import axios from 'axios';
 
@@ -67,10 +68,11 @@ function App () {
     <div>
       <div style={{ display: 'flex', flexDirection: 'row'}}>
       <InputCard model={"A"} color={"#fe4a49"} update_radar={setRadarData} update_bar={setBarData} update_scatter={setScatterData}/>
-      <InputCard model={"B"} color={"#2ab74a"} update_radar={setRadarData} update_bar={setBarData} update_scatter={setScatterData}/>
-      <InputCard model={"C"} color={"#fed766"} update_radar={setRadarData} update_bar={setBarData} update_scatter={setScatterData}/>
+      <InputCard model={"B"} color={"#52b000"} update_radar={setRadarData} update_bar={setBarData} update_scatter={setScatterData}/>
+      <InputCard model={"C"} color={"#03a1fc"} update_radar={setRadarData} update_bar={setBarData} update_scatter={setScatterData}/>
       </div>
-      <RadarPlot data={radarData}/>
+      {/* <RadarPlot data={radarData}/> */}
+      <GroupBartPlot data={radarData}/>
       <div style={{ display: 'flex', flexDirection: 'row'}}>
         <BarPlot data={barData}/>
         <ScatterPlot data={scatterData}/>
