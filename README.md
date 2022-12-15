@@ -16,6 +16,10 @@ On a separate terminal
 npm start
 ```
 
+## Video demo
+
+Video link: https://uwmadison.box.com/s/m0ls9ss0ooxugw17hpfennvc2c2qbyp6
+
 ## Instructions
 
 (Also in [`instructions.pdf`](https://github.com/yiyins2/ATUS_Interactive_Predictor_Web/blob/main/instructions.pdf))
