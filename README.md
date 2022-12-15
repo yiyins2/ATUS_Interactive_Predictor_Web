@@ -18,7 +18,7 @@ npm start
 
 ## Instructions
 
-(Also in `instructions.pdf`)
+(Also in [`instructions.pdf`](https://github.com/yiyins2/ATUS_Interactive_Predictor_Web/blob/main/instructions.pdf))
 
 ![](panels.png)
 
